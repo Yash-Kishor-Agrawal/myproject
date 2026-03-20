@@ -1,0 +1,467 @@
+/* =============================================
+   ROOT VARIABLES & RESET
+   ============================================= */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --rose:       #e8426a;
+  --rose-light: #f7a8be;
+  --rose-dark:  #a01f3c;
+  --cream:      #fff6f0;
+  --gold:       #c9974a;
+  --gold-light: #f0d9b5;
+  --deep:       #1a0a10;
+  --text-dark:  #2c0f1a;
+  --text-mid:   #6b3045;
+  --letter-bg:  #fffaf6;
+  --shadow:     rgba(168, 30, 60, 0.18);
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: radial-gradient(ellipse at 30% 20%, #3d0a1e 0%, #1a0510 50%, #0d0208 100%);
+  color: var(--cream);
+  cursor: default;
+}
+
+/* =============================================
+   STARS BACKGROUND
+   ============================================= */
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+  opacity: 0;
+}
+
+@keyframes twinkle {
+  0%   { opacity: 0.1; transform: scale(1); }
+  100% { opacity: 0.9; transform: scale(1.4); }
+}
+
+/* =============================================
+   FALLING PETALS
+   ============================================= */
+.petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -60px;
+  font-size: 1.4rem;
+  animation: fall linear infinite;
+  opacity: 0.75;
+}
+
+@keyframes fall {
+  0%   { transform: translateY(-60px) rotate(0deg); opacity: 0.8; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* =============================================
+   SCREENS
+   ============================================= */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* =============================================
+   CENTER CONTENT
+   ============================================= */
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* =============================================
+   ENVELOPE  (Screen 1)
+   ============================================= */
+.envelope {
+  width: 220px;
+  height: 160px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 8px 32px rgba(232, 66, 106, 0.5));
+}
+
+.envelope:hover {
+  transform: scale(1.05) translateY(-4px);
+}
+
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #f5d0dc, #f0b8c8);
+  border-radius: 4px 4px 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(232, 66, 106, 0.4);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(170deg, #e8426a, #c02050);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-radius: 4px 4px 0 0;
+  z-index: 2;
+  transform-origin: top center;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.heart-seal {
+  font-size: 2.5rem;
+  color: var(--rose);
+  text-shadow: 0 0 20px rgba(232, 66, 106, 0.8);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.12); }
+}
+
+.hint-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  color: var(--rose-light);
+  opacity: 0.8;
+  letter-spacing: 0.02em;
+}
+
+/* =============================================
+   LETTER PAPER  (Screen 2)
+   ============================================= */
+.letter-wrapper {
+  width: 100%;
+  max-width: 680px;
+  padding: 1rem 1.5rem;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.letter-paper {
+  background: var(--letter-bg);
+  border-radius: 4px;
+  padding: 2.8rem 3.2rem;
+  color: var(--text-dark);
+  box-shadow:
+    0 2px 0 var(--gold-light),
+    0 20px 60px rgba(0,0,0,0.5),
+    inset 0 0 0 1px rgba(201, 151, 74, 0.25);
+  position: relative;
+  overflow-y: auto;
+  max-height: 90vh;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rose-light) transparent;
+  /* Aged paper texture lines */
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      rgba(201, 151, 74, 0.12) 28px
+    );
+  background-size: 100% 28px;
+  animation: unfold 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes unfold {
+  from { opacity: 0; transform: scaleY(0.4) translateY(40px); }
+  to   { opacity: 1; transform: scaleY(1)   translateY(0); }
+}
+
+.letter-decoration {
+  text-align: center;
+  color: var(--gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.5em;
+  margin: 0.3rem 0 1rem;
+}
+.bottom-deco { margin: 1rem 0 0.3rem; }
+
+.salutation {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.9rem;
+  color: var(--rose-dark);
+  margin-bottom: 1.2rem;
+}
+
+.letter-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: var(--text-dark);
+  margin-bottom: 1.1rem;
+  font-style: italic;
+}
+
+.big-ask {
+  font-weight: 600;
+  color: var(--text-mid);
+  font-style: normal;
+}
+
+.romantic-quote {
+  border-left: 3px solid var(--rose);
+  margin: 1.5rem 0;
+  padding: 0.8rem 1.2rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--rose-dark);
+  background: rgba(232, 66, 106, 0.06);
+  border-radius: 0 4px 4px 0;
+}
+
+.proposal-question {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--rose);
+  text-align: center;
+  margin: 1.2rem 0 1.6rem;
+  text-shadow: 0 2px 12px rgba(232, 66, 106, 0.25);
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.buttons-wrapper {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  padding: 0.75rem 2.2rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn:hover::after { opacity: 1; }
+
+.yes-btn {
+  background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(232, 66, 106, 0.5);
+  transform: scale(1);
+}
+
+.yes-btn:hover {
+  transform: scale(1.07) translateY(-2px);
+  box-shadow: 0 10px 32px rgba(232, 66, 106, 0.65);
+}
+
+.no-btn {
+  background: transparent;
+  color: var(--text-mid);
+  border: 1.5px solid rgba(107, 48, 69, 0.35);
+  position: absolute; /* will be moved by JS */
+}
+
+.no-btn:hover {
+  border-color: var(--rose);
+  color: var(--rose);
+}
+
+.restart-btn {
+  background: linear-gradient(135deg, var(--gold), #a0702a);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(201, 151, 74, 0.45);
+  margin-top: 1rem;
+}
+
+.restart-btn:hover {
+  transform: scale(1.06) translateY(-2px);
+}
+
+/* =============================================
+   RESPONSE SCREEN  (Screen 3 & 4)
+   ============================================= */
+.response-screen {
+  gap: 1rem;
+}
+
+.big-heart {
+  font-size: 6rem;
+  color: var(--rose);
+  text-shadow: 0 0 60px rgba(232, 66, 106, 0.8);
+  animation: heartbeat 0.8s ease-in-out infinite;
+  line-height: 1;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.2); }
+  28%       { transform: scale(1); }
+  42%       { transform: scale(1.15); }
+  70%       { transform: scale(1); }
+}
+
+.response-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--cream);
+  text-shadow: 0 0 40px rgba(232, 66, 106, 0.6);
+}
+
+.no-title {
+  color: var(--rose-light);
+}
+
+.response-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: rgba(255, 246, 240, 0.75);
+}
+
+/* =============================================
+   QUOTE CAROUSEL (Screen 3)
+   ============================================= */
+.quote-carousel {
+  max-width: 520px;
+  min-height: 4rem;
+  position: relative;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.carousel-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--gold-light);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+  padding: 0 1rem;
+  line-height: 1.6;
+}
+
+.carousel-quote.active {
+  opacity: 1;
+  position: relative;
+}
+
+/* =============================================
+   SAD / NO SCREEN
+   ============================================= */
+.sad-emoji {
+  font-size: 5rem;
+  animation: wobble 1.5s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-5deg); }
+  50%       { transform: rotate(5deg); }
+}
+
+/* =============================================
+   CONFETTI HEARTS
+   ============================================= */
+.confetti-heart {
+  position: fixed;
+  pointer-events: none;
+  font-size: 1.6rem;
+  z-index: 999;
+  animation: confettiFall 2.5s ease-in forwards;
+}
+
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(90vh) rotate(360deg) scale(0.4); opacity: 0; }
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+.letter-paper::-webkit-scrollbar { width: 5px; }
+.letter-paper::-webkit-scrollbar-track { background: transparent; }
+.letter-paper::-webkit-scrollbar-thumb { background: var(--rose-light); border-radius: 10px; }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 600px) {
+  .letter-paper {
+    padding: 1.8rem 1.4rem;
+  }
+  .proposal-question { font-size: 1.35rem; }
+  .salutation { font-size: 1.5rem; }
+  .letter-body { font-size: 1rem; }
+  .response-title { font-size: 2rem; }
+}

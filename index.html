@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Be Mine? 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating petals container -->
+  <div class="petals-container" id="petalsContainer"></div>
+
+  <!-- Stars background -->
+  <div class="stars" id="stars"></div>
+
+  <!-- SCREEN 1: Landing -->
+  <section class="screen active" id="screen1">
+    <div class="center-content">
+      <div class="envelope" id="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="heart-seal">♥</div>
+        </div>
+      </div>
+      <p class="hint-text">Click the envelope to open your letter...</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 2: The Letter / Proposal -->
+  <section class="screen" id="screen2">
+    <div class="letter-wrapper">
+      <div class="letter-paper">
+        <div class="letter-decoration top-deco">✦ ✦ ✦</div>
+
+        <p class="salutation">My Dearest,</p>
+
+        <p class="letter-body">
+          From the moment you walked into my life, everything changed. 
+          The world became warmer, colours brighter, and every ordinary day 
+          turned into something worth remembering — because you were in it.
+        </p>
+
+        <p class="letter-body">
+          You are my favourite thought at 3 a.m., my reason to smile on the 
+          hardest days, and the person I want to share every sunrise with.
+          I have never been more sure of anything than I am of this feeling.
+        </p>
+
+        <blockquote class="romantic-quote" id="rotatingQuote">
+          "I would rather spend one lifetime with you, than face all the ages of this world alone."
+        </blockquote>
+
+        <p class="letter-body big-ask">
+          So here I am, with my heart wide open, asking you the most important 
+          question I have ever asked anyone —
+        </p>
+
+        <h2 class="proposal-question">Will you be my girlfriend? 💍</h2>
+
+        <div class="buttons-wrapper">
+          <button class="btn yes-btn" id="yesBtn">Yes, I will! 💖</button>
+          <button class="btn no-btn" id="noBtn">No...</button>
+        </div>
+
+        <div class="letter-decoration bottom-deco">✦ ✦ ✦</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3: YES response -->
+  <section class="screen" id="screen3">
+    <div class="center-content response-screen">
+      <div class="big-heart" id="bigHeart">♥</div>
+      <h1 class="response-title">She Said YES! 🎉</h1>
+      <p class="response-sub">You have made me the happiest person in the world.</p>
+
+      <div class="quote-carousel" id="quoteCarousel">
+        <div class="carousel-quote active">"In all the world, there is no heart for me like yours." — Maya Angelou</div>
+        <div class="carousel-quote">"I am yours, don't give myself back to me." — Rumi</div>
+        <div class="carousel-quote">"Whatever our souls are made of, his and mine are the same." — Emily Brontë</div>
+        <div class="carousel-quote">"You are my sun, my moon, and all of my stars." — E.E. Cummings</div>
+        <div class="carousel-quote">"I want all of you, forever, you and me, every day." — Nicholas Sparks</div>
+      </div>
+
+      <button class="btn restart-btn" id="restartBtn">Start Over 💌</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 4: NO response (runaway button) -->
+  <section class="screen" id="screen4">
+    <div class="center-content response-screen no-screen">
+      <div class="sad-emoji">🥺</div>
+      <h1 class="response-title no-title">Are you sure...?</h1>
+      <p class="response-sub">My heart is still waiting for you...</p>
+      <button class="btn restart-btn" id="tryAgainBtn">Let me reconsider 💭</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
